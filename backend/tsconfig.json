@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    /* --- Básico e Estrutura --- */
+    "target": "es2020",                  /* Versão do JS gerado. Node moderno suporta es2020+. */
+    "module": "commonjs",                /* Padrão do Node.js (require/module.exports). */
+    "rootDir": "./src",                  /* Onde seu código TS vive (igual a pasta /lib do Flutter). */
+    "outDir": "./dist",                  /* Onde o código JS compilado vai (igual a pasta /build). */
+    "removeComments": true,              /* Remove comentários no build final para limpar o código. */
+
+    /* --- Strict Type-Checking (O Rigor) --- */
+    "strict": true,                      /* Ativa o modo estrito (Null Safety, etc). */
+    "noImplicitAny": true,               /* PROIBIDO usar 'any' implícito. 'Any' é o 'dynamic' do TS. Evite! */
+    "strictNullChecks": true,            /* Garante que você trate null/undefined (Null Safety). */
+    "alwaysStrict": true,                /* Adiciona "use strict" em todo arquivo JS gerado. */
+
+    /* --- Code Quality (Linter no Compilador) --- */
+    "noUnusedLocals": true,              /* Erro se declarar variável e não usar (Linter). */
+    "noUnusedParameters": true,          /* Erro se declarar parâmetro de função e não usar. */
+    "noImplicitReturns": true,           /* Garante que todos os caminhos de uma função retornem valor. */
+    "forceConsistentCasingInFileNames": true, /* Evita bugs entre Windows/Mac com maiúsculas/minúsculas. */
+
+    /* --- Interop --- */
+    "esModuleInterop": true,             /* Permite importar libs CommonJS como se fossem ES Modules. */
+    "skipLibCheck": true                 /* Pula checagem de tipos dentro de node_modules (ganho de performance). */
+  },
+  "include": ["src/**/*"],               /* Compilar tudo dentro de src */
+  "exclude": ["node_modules", "**/*.spec.ts"] /* Ignorar dependências e testes no build final */
+}
