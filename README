@@ -1,0 +1,47 @@
+# Chat Real-time Fullstack (Node.js + React + Flutter)
+
+Um sistema de chat em tempo real completo, explorando a arquitetura orientada a eventos com WebSockets. O projeto demonstra a comunicação bidirecional entre diferentes plataformas (Web e Mobile) com persistência de dados.
+
+![Project Status](https://img.shields.io/badge/status-concluído-green)
+![Node Version](https://img.shields.io/badge/node-v20%2B-blue)
+
+## 📸 Screenshots
+
+|    Web Client (React)    | Mobile Client (Flutter)  |
+| :----------------------: | :----------------------: |
+| _(prints/print_web.png)_ | _(prints/print_app.png)_ |
+
+## 🛠️ Tecnologias Utilizadas
+
+O projeto foi desenvolvido utilizando a estratégia de **Monorepo**, dividido em três camadas principais:
+
+### 🔙 Backend (API & WebSocket)
+
+- **Node.js & TypeScript:** Base sólida e tipada.
+- **Socket.io:** Gerenciamento de eventos de conexão e mensagens em tempo real.
+- **Express:** Servidor HTTP.
+- **Prisma ORM:** Abstração de banco de dados.
+- **SQLite:** Banco de dados relacional (arquivo local).
+
+### 💻 Frontend Web
+
+- **React.js + Vite:** SPA rápida e moderna.
+- **TailwindCSS:** Estilização utilitária.
+- **Socket.io-client:** Cliente para conexão com o backend.
+- **Vitest & Testing Library:** Testes unitários e de hooks.
+
+### 📱 Mobile App
+
+- **Flutter:** Desenvolvimento híbrido para Android/iOS.
+- **Provider:** Gerenciamento de estado (Dependency Injection).
+- **Socket_io_client:** Cliente Dart para WebSockets.
+
+---
+
+## 🏗️ Arquitetura
+
+O sistema segue o padrão de **Event-Driven Architecture**.
+
+1. O Cliente (Web ou Mobile) emite um evento (`send_message`).
+2. O Backend escuta, valida e persiste a mensagem no SQLite via Prisma.
+3. O Backend emite um evento de broadcast (`receive_message`) para todos os conectados.
