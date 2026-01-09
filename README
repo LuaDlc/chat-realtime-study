@@ -6,7 +6,7 @@ Um sistema de chat em tempo real completo, explorando a arquitetura orientada a 
 
 |    Web Client (React)    | Mobile Client (Flutter)  |
 | :----------------------: | :----------------------: |
-| _(prints/print_web.png)_ | _(prints/print_app.png)_ |
+| _(prints/printweb.png)_ | _(prints/printapp.png)_ |
 
 ## 🛠️ Tecnologias Utilizadas
 
