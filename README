@@ -2,11 +2,14 @@
 
 Um sistema de chat em tempo real completo, explorando a arquitetura orientada a eventos com WebSockets. O projeto demonstra a comunicação bidirecional entre diferentes plataformas (Web e Mobile) com persistência de dados.
 
-## 📸 Screenshots
+## Screenshots
 
-|    Web Client (React)    | Mobile Client (Flutter)  |
+
+ ![Web Client](React)(./prints/printweb.png)
 | :----------------------: | :----------------------: |
-| _(./prints/printweb.png)_ | _(./prints/printapp.png)_ |
+![Mobile Client](Flutter)(./prints/printapp.png)
+
+
 
 ## 🛠️ Tecnologias Utilizadas
 
