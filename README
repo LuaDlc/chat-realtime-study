@@ -2,9 +2,6 @@
 
 Um sistema de chat em tempo real completo, explorando a arquitetura orientada a eventos com WebSockets. O projeto demonstra a comunicação bidirecional entre diferentes plataformas (Web e Mobile) com persistência de dados.
 
-![Project Status](https://img.shields.io/badge/status-concluído-green)
-![Node Version](https://img.shields.io/badge/node-v20%2B-blue)
-
 ## 📸 Screenshots
 
 |    Web Client (React)    | Mobile Client (Flutter)  |
