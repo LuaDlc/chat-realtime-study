@@ -5,9 +5,11 @@ Um sistema de chat em tempo real completo, explorando a arquitetura orientada a 
 ## Screenshots
 
 
- ![Web Client](React)(./prints/printweb.png)
-| :----------------------: | :----------------------: |
-![Mobile Client](Flutter)(./prints/printapp.png)
+ ## 📸 Screenshots
+
+| Web Client (React) | Mobile Client (Flutter) |
+| :---: | :---: |
+| ![Web](./prints/printweb.png) | ![Mobile](./prints/printapp.png) |
 
 
 
