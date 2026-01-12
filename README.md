@@ -1,5 +1,7 @@
 # Chat Real-time Fullstack (Node.js + React + Flutter)
 
+![video](./prints/video-chat-realtime.mov)
+
 Um sistema de chat em tempo real completo, explorando a arquitetura orientada a eventos com WebSockets e **Offline First** para garantir acesso ao histórico de mensagens mesmo sem conexão com a internet. O projeto demonstra a comunicação bidirecional entre diferentes plataformas (Web e Mobile) com persistência de dados.
 
 ## Screenshots
