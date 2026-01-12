@@ -16,8 +16,7 @@ const io = new Server(server, {
 });
 
 io.on("connection", async (socket) => {
-  // <--- Note o ASYNC aqui
-  console.log(`🔌 Cliente conectado: ${socket.id}`);
+  console.log(` Cliente conectado: ${socket.id}`);
 
   try {
     const history = await messageService.getRecentMessages();
@@ -27,7 +26,7 @@ io.on("connection", async (socket) => {
   }
 
   socket.on("send_message", async (data: any) => {
-    console.log(`📩 Recebido:`, data);
+    console.log(` Recebido:`, data);
 
     if (!data.texto || !data.usuario) {
       return;
@@ -42,6 +41,16 @@ io.on("connection", async (socket) => {
       io.emit("receive_message", savedMessage);
     } catch (err) {
       console.error("Erro ao salvar mensagem:", err);
+    }
+  });
+  socket.on("delete_message", async (messageId: number) => {
+    try {
+      await messageService.deleteMessage(messageId);
+
+      io.emit("message_deleted", messageId);
+      console.log(` Mensagem ${messageId} apagada.`);
+    } catch (err) {
+      console.error("Erro ao apagar:", err);
     }
   });
 

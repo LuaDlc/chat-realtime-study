@@ -53,7 +53,6 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  //trecho 2
   Widget _buildMessageList(SocketService service) {
     return Expanded(
       child: ListView.builder(
@@ -62,37 +61,67 @@ class _ChatScreenState extends State<ChatScreen> {
           final msg = service.messages[index];
           final isMe = msg['userId'] == _myUser;
 
-          return Align(
-            alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
-            child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: isMe ? Colors.blue[100] : Colors.grey[300],
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(12),
-                  topRight: const Radius.circular(12),
-                  bottomLeft: isMe ? const Radius.circular(12) : Radius.zero,
-                  bottomRight: isMe ? Radius.zero : const Radius.circular(12),
+          return GestureDetector(
+            onLongPress: () {
+              if (isMe) {
+                showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    title: const Text('Apagar mensagem?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.of(ctx).pop(),
+                        child: const Text('Cancelar'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          final id = msg['remote_id'] ?? msg['id'];
+                          service.deleteMessage(id);
+
+                          Navigator.of(ctx).pop();
+                        },
+                        child: const Text(
+                          'Apagar',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+            },
+            child: Align(
+              alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+              child: Container(
+                margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: isMe ? Colors.blue[100] : Colors.grey[300],
+                  borderRadius: BorderRadius.only(
+                    topLeft: const Radius.circular(12),
+                    topRight: const Radius.circular(12),
+                    bottomLeft: isMe ? const Radius.circular(12) : Radius.zero,
+                    bottomRight: isMe ? Radius.zero : const Radius.circular(12),
+                  ),
                 ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    msg['userId'] ?? 'Anon',
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                      color: isMe ? Colors.blue[900] : Colors.black54,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      msg['userId'] ?? 'Anon',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: isMe ? Colors.blue[900] : Colors.black54,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    msg['content'] ?? '',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ],
+                    const SizedBox(height: 2),
+                    Text(
+                      msg['content'] ?? '',
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
               ),
             ),
           );

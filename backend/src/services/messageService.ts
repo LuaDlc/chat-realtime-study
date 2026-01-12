@@ -18,6 +18,12 @@ export const messageService = {
     return message;
   },
 
+  async deleteMessage(id: number) {
+    return prisma.message.delete({
+      where: { id },
+    });
+  },
+
   async getRecentMessages() {
     const messages = await prisma.message.findMany({
       take: 50,

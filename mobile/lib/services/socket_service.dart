@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:mobile/helpers/database_helper.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class SocketService with ChangeNotifier {
@@ -14,6 +15,8 @@ class SocketService with ChangeNotifier {
   bool get isConnected => _isConnected;
 
   void initConnection() {
+    _loadLocalMessages();
+
     _socket = IO.io(
       _baseUrl,
       IO.OptionBuilder()
@@ -39,14 +42,29 @@ class SocketService with ChangeNotifier {
       notifyListeners();
     });
 
-    _socket.on('previous_messages', (data) {
+    _socket.on('previous_messages', (data) async {
       if (data is List) {
-        _messages = List<Map<String, dynamic>>.from(data);
-        notifyListeners();
+        await DatabaseHelper.instance.insertBatch(
+          List<Map<String, dynamic>>.from(data),
+        );
+        await _loadLocalMessages();
       }
     });
 
-    _socket.on('receive_message', (data) {
+    _socket.on('message_deleted', (data) async {
+      final id = data as int;
+
+      await DatabaseHelper.instance.deleteMessage(id);
+
+      _messages.removeWhere((msg) => msg['remote_id'] == id || msg['id'] == id);
+
+      notifyListeners();
+    });
+
+    _socket.on('receive_message', (data) async {
+      await DatabaseHelper.instance.insertMessage(
+        Map<String, dynamic>.from(data),
+      );
       _messages.add(Map<String, dynamic>.from(data));
       notifyListeners();
     });
@@ -54,6 +72,19 @@ class SocketService with ChangeNotifier {
 
   void sendMessage(String text, String user) {
     _socket.emit('send_message', {'texto': text, 'usuario': user});
+  }
+
+  void deleteMessage(int id) {
+    _socket.emit('delete_message', id);
+  }
+
+  Future<void> _loadLocalMessages() async {
+    final localData = await DatabaseHelper.instance.getAllMessages();
+
+    _messages = List<Map<String, dynamic>>.from(localData);
+
+    print(' Carregadas ${_messages.length} mensagens do cache local.');
+    notifyListeners();
   }
 
   void disconnect() {
